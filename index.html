@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Analytics | Premium Insights</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="glow-bg"></div>
+    
+    <main class="container">
+        <header class="hero">
+            <h1>TikTok <span class="gradient-text">Insights</span></h1>
+            <p>Professional grade analytics for creators.</p>
+        </header>
+
+        <section class="search-section">
+            <div class="input-group">
+                <span class="at-symbol">@</span>
+                <input type="text" id="usernameInput" placeholder="username" spellcheck="false">
+                <button id="analyzeBtn">Analyze</button>
+            </div>
+        </section>
+
+        <div id="loader" class="hidden">
+            <div class="spinner"></div>
+            <p>Fetching real-time data...</p>
+        </div>
+
+        <section id="statsGrid" class="stats-grid hidden">
+            <div class="stat-card">
+                <span class="icon">👤</span>
+                <h3 class="counter" data-target="0" id="followers">0</h3>
+                <p>Followers</p>
+            </div>
+            <div class="stat-card">
+                <span class="icon">❤️</span>
+                <h3 class="counter" data-target="0" id="likes">0</h3>
+                <p>Total Likes</p>
+            </div>
+            <div class="stat-card">
+                <span class="icon">🎥</span>
+                <h3 class="counter" data-target="0" id="videos">0</h3>
+                <p>Videos</p>
+            </div>
+            <div class="stat-card">
+                <span class="icon">👁</span>
+                <h3 class="counter" data-target="0" id="avgViews">0</h3>
+                <p>Avg. Views</p>
+            </div>
+        </section>
+
+        <div id="errorMsg" class="error-ui hidden">
+            User not found or profile is private.
+        </div>
+    </main>
+
+    <footer>
+        <p class="signature">Made by <span class="bold">Sohan</span></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
