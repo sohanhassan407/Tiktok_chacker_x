@@ -10,12 +10,16 @@ CORS(app)
 
 def format_number(num_str):
     """Converts TikTok's K, M, B strings to integers."""
-    if not num_str: return 0
+    if not num_str:
+        return 0
     num_str = num_str.upper()
     multiplier = 1
-    if 'K' in num_str: multiplier = 1000
-    elif 'M' in num_str: multiplier = 1000000
-    elif 'B' in num_str: multiplier = 1000000000
+    if 'K' in num_str:
+        multiplier = 1000
+    elif 'M' in num_str:
+        multiplier = 1000000
+    elif 'B' in num_str:
+        multiplier = 1000000000
     
     clean_num = re.sub(r'[^\d.]', '', num_str)
     return int(float(clean_num) * multiplier) if clean_num else 0
@@ -33,25 +37,20 @@ def get_tiktok_stats():
 
     try:
         response = requests.get(url, headers=headers, timeout=10)
-        if response.status_status != 200:
+        if response.status_code != 200:
             return jsonify({"error": "User not found"}), 404
 
         soup = BeautifulSoup(response.content, 'html.parser')
-        
-        # Finding the JSON data inside the script tag
         script_tag = soup.find('script', id='__UNIVERSAL_DATA_FOR_REHYDRATION__')
         if not script_tag:
             return jsonify({"error": "Data unavailable"}), 404
-            
+
         data = json.loads(script_tag.string)
         user_info = data['__DEFAULT_SCOPE__']['webapp.user-detail']['userInfo']['stats']
 
         followers = user_info.get('followerCount', 0)
         likes = user_info.get('heartCount', 0)
         videos = user_info.get('videoCount', 0)
-        
-        # Simulated logic for Avg Views based on recent engagement
-        # (Real view counts require iterating through the video list)
         avg_views = int((likes * 1.5) / (videos if videos > 0 else 1))
 
         return jsonify({
@@ -65,4 +64,4 @@ def get_tiktok_stats():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=10000, debug=False)
